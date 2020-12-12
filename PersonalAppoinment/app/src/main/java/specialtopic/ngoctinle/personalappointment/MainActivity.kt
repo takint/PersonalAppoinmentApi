@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,9 +30,17 @@ class MainActivity : AppCompatActivity() {
         appointmentService = ApiServices(application)
         appointmentService.getAppointmentData().observe(this) {
             listAppointments = ArrayList(it)
-            adapter = AppointmentListAdapter(listAppointments)
+            adapter = AppointmentListAdapter(listAppointments, appointmentService)
             rvAppointments.adapter = adapter
         }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            appointmentService.getAppointmentsFromService()
+        }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
 
         CoroutineScope(Dispatchers.IO).launch {
             appointmentService.getAppointmentsFromService()
@@ -44,6 +53,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onSearchClick(view: View) {
+        val searchTerm = SearchRequest(etFromDate.text.toString(), etToDate.text.toString())
 
+        CoroutineScope(Dispatchers.IO).launch {
+            appointmentService.searchAppointment(searchTerm)
+        }
     }
 }

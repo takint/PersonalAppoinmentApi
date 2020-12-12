@@ -25,5 +25,5 @@ interface ApiServiceInterface {
 
     @Headers("Content-Type: application/json")
     @POST("/appointments/search")
-    fun searchAppointment(@Body searchTerm: SearchRequest): Response<List<Appointment>>
+    suspend fun searchAppointment(@Body searchTerm: SearchRequest): Response<List<Appointment>>
 }

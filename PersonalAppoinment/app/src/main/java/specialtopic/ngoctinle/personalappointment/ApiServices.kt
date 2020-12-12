@@ -63,7 +63,7 @@ class ApiServices(private val app: Application) {
     }
 
     @WorkerThread
-    fun searchAppointment(searchTerm: SearchRequest) {
+    suspend fun searchAppointment(searchTerm: SearchRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 if (NetworkHelper.isNetworkConnected(app)) {

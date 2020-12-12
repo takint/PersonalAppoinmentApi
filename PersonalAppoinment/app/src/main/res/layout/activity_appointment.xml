@@ -32,10 +32,10 @@
         android:id="@+id/etDetailStartDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/date_format"
-        android:inputType="date"
-        android:autofillHints="" />
+        android:inputType="date|text|time" />
 
     <TextView
         android:id="@+id/textView5"
@@ -47,10 +47,10 @@
         android:id="@+id/etDetailEndDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/date_format"
-        android:inputType="date"
-        android:autofillHints="" />
+        android:inputType="date|text|time" />
 
     <CheckBox
         android:id="@+id/chbAllDay"

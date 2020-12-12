@@ -3,7 +3,7 @@ from datetime import datetime
 from flask_mongoengine import MongoEngine
 
 DB_URI = 'mongodb+srv://admindb:IBHWd0u2oyGWp0kW@cluster0.rio81.mongodb.net/myappointmentdb?retryWrites=true&w=majority'
-STD_DATE_FORMAT = '%d/%m/%Y %H:%M:%S'
+STD_DATE_FORMAT = '%m-%d-%Y %H:%M'
 
 """Set up application"""
 app = Flask(__name__)
@@ -62,10 +62,10 @@ def add_appointments():
     appointment = request.get_json()
 
     newAppoint = Appointments(title=appointment["title"],
-                    startTime=datetime.strptime(appointment["startTime"], STD_DATE_FORMAT),
-                    displayStartTime=appointment["startTime"],
-                    endTime=datetime.strptime(appointment["endTime"], STD_DATE_FORMAT),
-                    displayEndTime=appointment["endTime"],
+                    startTime=datetime.strptime(appointment["displayStartTime"], STD_DATE_FORMAT),
+                    displayStartTime=appointment["displayStartTime"],
+                    endTime=datetime.strptime(appointment["displayEndTime"], STD_DATE_FORMAT),
+                    displayEndTime=appointment["displayEndTime"],
                     isAllDay=appointment["isAllDay"],
                     location=appointment["location"],
                     description=appointment["description"])
@@ -84,10 +84,10 @@ def update_appointments():
         return jsonify({'error': 'data not found'})
     else:
         updatedApp.update(title=appointment["title"],
-                    startTime=datetime.strptime(appointment["startTime"], STD_DATE_FORMAT),
-                    displayStartTime=appointment["startTime"],
-                    endTime=datetime.strptime(appointment["endTime"], STD_DATE_FORMAT),
-                    displayEndTime=appointment["endTime"],
+                    startTime=datetime.strptime(appointment["displayStartTime"], STD_DATE_FORMAT),
+                    displayStartTime=appointment["displayStartTime"],
+                    endTime=datetime.strptime(appointment["displayEndTime"], STD_DATE_FORMAT),
+                    displayEndTime=appointment["displayEndTime"],
                     isAllDay=appointment["isAllDay"],
                     location=appointment["location"],
                     description=appointment["description"])

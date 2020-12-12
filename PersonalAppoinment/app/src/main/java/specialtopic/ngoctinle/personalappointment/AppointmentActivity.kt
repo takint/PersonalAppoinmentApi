@@ -11,12 +11,14 @@ import kotlinx.coroutines.launch
 class AppointmentActivity : AppCompatActivity() {
 
     private lateinit var appointmentService: ApiServices
+    private var appId = 0
+    private var currentApp = Appointment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appointment)
 
-        val appId = intent.getIntExtra(NetworkHelper.APP_ID, 0)
+        appId = intent.getIntExtra(NetworkHelper.APP_ID, 0)
         appointmentService = ApiServices(application)
 
         appointmentService.getAppointment().observe(this, {
@@ -27,6 +29,7 @@ class AppointmentActivity : AppCompatActivity() {
                 chbAllDay.isChecked = it.isAllDay
                 etDetailStartDate.setText(it.displayStartTime)
                 etDetailEndDate.setText(it.displayEndTime)
+                currentApp = it
             }
         })
 
@@ -39,6 +42,21 @@ class AppointmentActivity : AppCompatActivity() {
 
     fun onSaveClick(view: View) {
 
+        currentApp = Appointment(
+            appId, etTitle.text.toString(), chbAllDay.isChecked,
+            etLocation.text.toString(), etDescription.text.toString(),
+            etDetailStartDate.text.toString(), etDetailEndDate.text.toString()
+        )
+
+        CoroutineScope(Dispatchers.IO).launch {
+            if (appId > 0) {
+                appointmentService.updateAppointment(currentApp)
+            } else {
+                appointmentService.createAppointment(currentApp)
+            }
+        }
+
+        finish()
     }
 
     fun onCancelClick(view: View) {

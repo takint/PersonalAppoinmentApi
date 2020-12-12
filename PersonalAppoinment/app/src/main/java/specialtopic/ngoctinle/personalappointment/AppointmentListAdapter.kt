@@ -6,8 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class AppointmentListAdapter(private val appointments: ArrayList<Appointment>) :
+class AppointmentListAdapter(
+    private val appointments: ArrayList<Appointment>,
+    private val appService: ApiServices
+) :
     RecyclerView.Adapter<AppointmentListAdapter.ViewHolder>() {
 
 
@@ -49,7 +55,11 @@ class AppointmentListAdapter(private val appointments: ArrayList<Appointment>) :
         }
 
         holder.btnDelete.setOnClickListener {
-
+            CoroutineScope(Dispatchers.IO).launch {
+                appService.deleteAppointment(appID)
+            }
+            appointments.removeAt(position)
+            notifyDataSetChanged()
         }
     }
 
