@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, jsonify, request, make_respo
 from datetime import datetime
 from flask_mongoengine import MongoEngine
 
-DB_URI = 'mongodb+srv://:@/?retryWrites=true&w=majority'
+DB_URI = 'mongodb+srv://admindb:IBHWd0u2oyGWp0kW@cluster0.rio81.mongodb.net/myappointmentdb?retryWrites=true&w=majority'
 STD_DATE_FORMAT = '%d/%m/%Y %H:%M:%S'
 
 """Set up application"""

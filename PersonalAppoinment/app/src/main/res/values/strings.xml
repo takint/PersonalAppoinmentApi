@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Personal Appointment</string>
+    <string name="search">Search</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
+    <string name="new_appointment">New Appointment</string>
+    <string name="title">Title</string>
+    <string name="location">Location</string>
+    <string name="datetime">DateTime</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="important_meeting">Important Meeting</string>
+    <string name="start">Start</string>
+    <string name="date_format">MM-dd-yyyy hh:mm</string>
+    <string name="end">End</string>
+    <string name="all_day">All Day</string>
+    <string name="description">Description</string>
+    <string name="about_your_appointment">About your appointment</string>
+    <string name="save">Save</string>
 </resources>
